@@ -15,8 +15,36 @@ const createBike = async (req: Request, res: Response) => {
   }
 };
 
+const getAllBikeFromDB = async (req: Request, res: Response) => {
+  try {
+    const result = await bikeService.getAllBikeFromDB();
+    res.status(200).json({
+      success: true,
+      message: "All bike get successfuly..!",
+      data: result,
+    });
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
+const SingleGetAllBikeFromDB = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const result = await bikeService.SingleGetBikeFromDB(id);
+    res.status(200).json({
+      success: true,
+      message: "Single bike get successfuly..!",
+      data: result,
+    });
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const bikeController ={
-    createBike
+    createBike,getAllBikeFromDB,SingleGetAllBikeFromDB
 }

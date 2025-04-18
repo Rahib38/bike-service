@@ -1,3 +1,4 @@
+import { Bike } from "../../../generated/prisma";
 import prisma from "../../../shared/prisma";
 
 const createBike = async (data: any) => {
@@ -12,7 +13,6 @@ const createBike = async (data: any) => {
       },
     };
   
-    console.log(data);
     const result = await prisma.$transaction(async (transactionClient) => {
       const createBikeData = await transactionClient.bike.create({
         data: userData,
@@ -22,6 +22,23 @@ const createBike = async (data: any) => {
     return result;
   };
 
+  const getAllBikeFromDB = async () => {
+    const result = await prisma.bike.findMany();
+    return result;
+  };
+  
+  const SingleGetBikeFromDB = async (
+    bikeId: string
+  ): Promise<Bike | null> => {
+    console.log(bikeId);
+    const result = await prisma.bike.findUnique({
+      where: {
+        bikeId,
+      },
+    });
+    return result;
+  };
+
 export const bikeService={
-    createBike
+    createBike,getAllBikeFromDB,SingleGetBikeFromDB
 }
