@@ -1,18 +1,19 @@
 import { Request, Response } from "express";
 import { customerService } from "./customer.service";
+import sendResponse from "../../../shared/sendResponse";
+import status from "http-status";
 
 const createController = async (req: Request, res: Response) => {
-  try {
+
     const result = await customerService.createCustomer(req.body);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
-      message: "Customer Created successfuly..!",
+      message: "Create customer successfuly..!",
+    
       data: result,
     });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+
 };
 
 const getAllCustomerFromDB = async (req: Request, res: Response) => {
