@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import { Customer } from "../../../generated/prisma";
 import prisma from "../../../shared/prisma";
 
@@ -38,7 +37,7 @@ const SingleGetCustomerFromDB = async (
 
 const updateCustomerFromDB = async (
   customerId: string,
-  data:Partial<Customer>
+  data: Partial<Customer>
 ): Promise<Customer | null> => {
   console.log("data", customerId, data);
 
@@ -50,8 +49,22 @@ const updateCustomerFromDB = async (
   return result;
 };
 
+const deleteCustomerFromDB = async (customerId: string) => {
+  const result = await prisma.$transaction(async (transactionClient) => {
+    const customerDeleteData = await transactionClient.customer.delete({
+      where: {
+        customerId,
+      },
+    });
+    return customerDeleteData
+  });
+  return result
+};
+
 export const customerService = {
   createCustomer,
   getAllCustomerFromDB,
-  SingleGetCustomerFromDB,updateCustomerFromDB
+  SingleGetCustomerFromDB,
+  updateCustomerFromDB,
+  deleteCustomerFromDB,
 };

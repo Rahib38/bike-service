@@ -10,4 +10,6 @@ router.get('/customers/:id', customerController.SingleGetAllCustomerFromDB)
 
 router.put('/customers/:id', customerController.updateCustomerFromDB)
 
+router.delete('/customers/:id', customerController.deleteCustomerFromDB)
+
 export default router
