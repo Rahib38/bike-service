@@ -64,24 +64,20 @@ const deleteCustomerFromDB = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     // const { data } = req.body;
-    const result = await customerService.deleteCustomerFromDB(id);
+    await customerService.deleteCustomerFromDB(id);
     res.status(200).json({
       success: true,
       message: "Customer delete successfuly..!",
-      data: result,
     });
-    console.log(result);
   } catch (err) {
     console.log(err);
   }
 };
 
-
-
-
 export const customerController = {
   createController,
   getAllCustomerFromDB,
   SingleGetAllCustomerFromDB,
-  updateCustomerFromDB,deleteCustomerFromDB
+  updateCustomerFromDB,
+  deleteCustomerFromDB,
 };
