@@ -30,7 +30,8 @@ model Bike {
   brand         String
   model         String
   year          Int
-  customer      Customer        @relation(fields: [bikeId], references: [customerId])
+  customerId    String
+  customer      Customer        @relation(fields: [customerId], references: [customerId])
   ServiceRecord ServiceRecord[]
 
   @@map("bikes")
@@ -45,7 +46,7 @@ model ServiceRecord {
   completionDate DateTime
 
   status ServiceStatus @default(pending)
-  bike   Bike          @relation(fields: [serviceId], references: [bikeId])
+  bikeId Bike          @relation(fields: [serviceId], references: [bikeId])
 
   @@map("services")
 }
