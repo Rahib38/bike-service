@@ -1,50 +1,45 @@
 import { Request, Response } from "express";
+import status from "http-status";
+import sendResponse from "../../../shared/sendResponse";
 import { bikeService } from "./bike.service";
 
 const createBike = async (req: Request, res: Response) => {
-  try {
-    const result = await bikeService.createBike(req.body);
-    res.status(200).json({
-      success: true,
-      message: "Bike added successfully..!",
-      data: result,
-    });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+  const result = await bikeService.createBike(req.body);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Bike added successfully..!",
+
+    data: result,
+  });
 };
 
 const getAllBikeFromDB = async (req: Request, res: Response) => {
-  try {
-    const result = await bikeService.getAllBikeFromDB();
-    res.status(200).json({
-      success: true,
-      message: "All bike get successfuly..!",
-      data: result,
-    });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+  const result = await bikeService.getAllBikeFromDB();
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Bikes fetched successfully..!",
+
+    data: result,
+  });
 };
 
 const SingleGetAllBikeFromDB = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const result = await bikeService.SingleGetBikeFromDB(id);
-    res.status(200).json({
-      success: true,
-      message: "Single bike get successfuly..!",
-      data: result,
-    });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+  const result = await bikeService.SingleGetBikeFromDB(id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Bike fetched successfully..!",
+
+    data: result,
+  });
 };
 
-export const bikeController ={
-    createBike,getAllBikeFromDB,SingleGetAllBikeFromDB
-}
+export const bikeController = {
+  createBike,
+  getAllBikeFromDB,
+  SingleGetAllBikeFromDB,
+};

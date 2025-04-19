@@ -1,78 +1,65 @@
 import { Request, Response } from "express";
-import { customerService } from "./customer.service";
-import sendResponse from "../../../shared/sendResponse";
 import status from "http-status";
+import sendResponse from "../../../shared/sendResponse";
+import { customerService } from "./customer.service";
 
 const createController = async (req: Request, res: Response) => {
+  const result = await customerService.createCustomer(req.body);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Create customer successfuly..!",
 
-    const result = await customerService.createCustomer(req.body);
-    sendResponse(res, {
-      statusCode: status.OK,
-      success: true,
-      message: "Create customer successfuly..!",
-    
-      data: result,
-    });
-
+    data: result,
+  });
 };
 
 const getAllCustomerFromDB = async (req: Request, res: Response) => {
-  try {
-    const result = await customerService.getAllCustomerFromDB();
-    res.status(200).json({
-      success: true,
-      message: "All Customer get successfuly..!",
-      data: result,
-    });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+  const result = await customerService.getAllCustomerFromDB();
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Customers fetched successfully..!",
+
+    data: result,
+  });
 };
 
 const SingleGetAllCustomerFromDB = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const result = await customerService.SingleGetCustomerFromDB(id);
-    res.status(200).json({
-      success: true,
-      message: "Single Customer get successfuly..!",
-      data: result,
-    });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+  const result = await customerService.SingleGetCustomerFromDB(id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Customer fetched successfully..!",
+
+    data: result,
+  });
 };
 
 const updateCustomerFromDB = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    // const { data } = req.body;
-    const result = await customerService.updateCustomerFromDB(id, req.body);
-    res.status(200).json({
-      success: true,
-      message: "Customer update successfuly..!",
-      data: result,
-    });
-    console.log(result);
-  } catch (err) {
-    console.log(err);
-  }
+  const { id } = req.params;
+  // const { data } = req.body;
+  const result = await customerService.updateCustomerFromDB(id, req.body);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Customer updated successfully..!",
+
+    data: result,
+  });
 };
+
 const deleteCustomerFromDB = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    // const { data } = req.body;
-    await customerService.deleteCustomerFromDB(id);
-    res.status(200).json({
-      success: true,
-      message: "Customer delete successfuly..!",
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  const { id } = req.params;
+  // const { data } = req.body;
+  await customerService.deleteCustomerFromDB(id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Customer deleted successfully..!",
+  });
 };
 
 export const customerController = {
