@@ -5,6 +5,7 @@ import bikeRouter from "./app/modules/bike/bike.routes";
 import globalErrorHandler from "./app/middleware/globalErrorhandleing";
 import status from "http-status";
 import serviceRouter from "./app/modules/service/service.routes";
+import notFound from "./shared/notFound";
 
 const app: Application = express();
 app.use(cors());
@@ -17,16 +18,7 @@ app.use('/api',serviceRouter)
 
 app.use(globalErrorHandler)
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(status.NOT_FOUND).json({
-    success: false,
-    message: "Api Not Found!",
-    error: {
-      path: req.originalUrl,
-      message: "Your requested path is not found!",
-    },
-  });
-});
+app.use(notFound);
 
 app.get("/", (req: Request, res: Response) => {
   res.send({

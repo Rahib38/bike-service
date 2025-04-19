@@ -44,8 +44,8 @@ const updateServiceFromDB = async (
   data: Partial<ServiceRecord>
 ): Promise<ServiceRecord | null> => {
   console.log("data", serviceId, data);
-  if(data.completionDate){
-    data.status=ServiceStatus.done
+  if (data.completionDate) {
+    data.status = ServiceStatus.done;
   }
 
   const result = await prisma.serviceRecord.update({
@@ -58,9 +58,27 @@ const updateServiceFromDB = async (
   return result;
 };
 
-export const serviceRecord = {
+const getpendingOrOverdueServices = async () => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  const result = await prisma.serviceRecord.findMany({
+    where: {
+      status: {
+        in: [ServiceStatus.pending, ServiceStatus.in_progress],
+      },
+      serviceDate: {
+        lt: sevenDaysAgo,
+      },
+    },
+  });
+  return result;
+};
+
+export const serviceRecords = {
   createService,
   getAllServiceFromDB,
   SingleGetServiceFromDB,
   updateServiceFromDB,
+  getpendingOrOverdueServices,
 };

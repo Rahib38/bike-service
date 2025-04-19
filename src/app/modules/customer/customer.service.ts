@@ -1,4 +1,6 @@
-import { Customer } from "../../../generated/prisma";
+import { status } from 'http-status';
+import { Customer, ServiceStatus } from "../../../generated/prisma";
+import notFound from "../../../shared/notFound";
 import prisma from "../../../shared/prisma";
 
 const createCustomer = async (data: any) => {
@@ -32,6 +34,7 @@ const SingleGetCustomerFromDB = async (
       customerId,
     },
   });
+
   return result;
 };
 
@@ -56,10 +59,13 @@ const deleteCustomerFromDB = async (customerId: string) => {
         customerId,
       },
     });
-    return customerDeleteData
+    return customerDeleteData;
   });
-  return result
+  return result;
 };
+
+
+
 
 export const customerService = {
   createCustomer,

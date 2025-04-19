@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import status from "http-status";
 import sendResponse from "../../../shared/sendResponse";
-import { serviceRecord } from "./service.service";
+import { serviceRecords } from "./service.service";
 
 const createService = async (req: Request, res: Response) => {
-  const result = await serviceRecord.createService(req.body);
+  const result = await serviceRecords.createService(req.body);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -15,7 +15,7 @@ const createService = async (req: Request, res: Response) => {
 };
 
 const getAllServiceFromDB = async (req: Request, res: Response) => {
-  const result = await serviceRecord.getAllServiceFromDB();
+  const result = await serviceRecords.getAllServiceFromDB();
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -28,7 +28,7 @@ const getAllServiceFromDB = async (req: Request, res: Response) => {
 const SingleGetServiceFromDB = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const result = await serviceRecord.SingleGetServiceFromDB(id);
+  const result = await serviceRecords.SingleGetServiceFromDB(id);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -41,7 +41,7 @@ const SingleGetServiceFromDB = async (req: Request, res: Response) => {
 const updateServiceFromDB = async (req: Request, res: Response) => {
   const { id } = req.params;
   // const { data } = req.body;
-  const result = await serviceRecord.updateServiceFromDB(id, req.body);
+  const result = await serviceRecords.updateServiceFromDB(id, req.body);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -51,6 +51,17 @@ const updateServiceFromDB = async (req: Request, res: Response) => {
   });
 };
 
+const getpendingOrOverdueServices = async (req: Request, res: Response) => {
+  const result = await serviceRecords.getpendingOrOverdueServices();
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Overdue or pending services fetched successfully..!",
+
+    data: result,
+  });
+};
+
 export const ServiceController = {
-  createService,getAllServiceFromDB,SingleGetServiceFromDB,updateServiceFromDB
+  createService,getAllServiceFromDB,SingleGetServiceFromDB,updateServiceFromDB,getpendingOrOverdueServices
 };

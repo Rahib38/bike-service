@@ -6,6 +6,8 @@ serviceRouter.post('/services', ServiceController.createService)
 
 serviceRouter.get('/services', ServiceController.getAllServiceFromDB)
 
+serviceRouter.get('/services/status', ServiceController.getpendingOrOverdueServices)
+
 serviceRouter.get('/services/:id', ServiceController.SingleGetServiceFromDB)
 
 serviceRouter.put('/services/:id', ServiceController.updateServiceFromDB)
