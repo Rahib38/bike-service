@@ -4,6 +4,7 @@ import router from "./app/modules/customer/customer.routes";
 import bikeRouter from "./app/modules/bike/bike.routes";
 import globalErrorHandler from "./app/middleware/globalErrorhandleing";
 import status from "http-status";
+import serviceRouter from "./app/modules/service/service.routes";
 
 const app: Application = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api',router)
 app.use('/api',bikeRouter)
+app.use('/api',serviceRouter)
 
 app.use(globalErrorHandler)
 
