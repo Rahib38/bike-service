@@ -38,15 +38,14 @@ model Bike {
 }
 
 model ServiceRecord {
-  serviceId      String   @id @default(uuid())
-  name           String
+  serviceId      String    @id @default(uuid())
   description    String
-  phone          String
-  serviceDate    DateTime @default(now())
-  completionDate DateTime
+  serviceDate    DateTime  @default(now())
+  completionDate DateTime? @default(now())
 
   status ServiceStatus @default(pending)
-  bikeId Bike          @relation(fields: [serviceId], references: [bikeId])
+  bikeId String
+  bike   Bike          @relation(fields: [bikeId], references: [bikeId])
 
   @@map("services")
 }

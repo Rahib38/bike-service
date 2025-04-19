@@ -41,7 +41,7 @@ model ServiceRecord {
   serviceId      String   @id @default(uuid())
   description    String
   serviceDate    DateTime @default(now())
-  completionDate DateTime?
+  completionDate DateTime? @default(now())
 
   status ServiceStatus @default(pending)
   bikeId String
