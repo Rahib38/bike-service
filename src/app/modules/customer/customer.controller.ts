@@ -5,11 +5,11 @@ import { customerService } from "./customer.service";
 
 const createController = async (req: Request, res: Response) => {
   const result = await customerService.createCustomer(req.body);
+  // console.log(result)
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
     message: "Create customer successfuly..!",
-
     data: result,
   });
 };

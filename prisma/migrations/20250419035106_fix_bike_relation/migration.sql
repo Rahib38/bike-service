@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "services" ALTER COLUMN "completionDate" SET DEFAULT CURRENT_TIMESTAMP;

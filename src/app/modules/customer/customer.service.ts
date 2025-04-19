@@ -11,12 +11,11 @@ const createCustomer = async (data: any) => {
   };
 
   console.log(data);
-  const result = await prisma.$transaction(async (transactionClient) => {
-    const createCustomerData = await transactionClient.customer.create({
+  
+    const result = await prisma.customer.create({
       data: userData,
-    });
-    return createCustomerData;
-  });
+    })
+    console.log(result)
   return result;
 };
 
