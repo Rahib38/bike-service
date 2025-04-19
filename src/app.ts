@@ -15,14 +15,14 @@ app.use("/api", customerRouter);
 app.use("/api", bikeRouter);
 app.use("/api", serviceRouter);
 
-app.use(globalErrorHandler);
-
-app.use(notFound);
-
 app.get("/", (req: Request, res: Response) => {
   res.send({
     Message: "Bike Service Server..",
   });
 });
+app.use(globalErrorHandler);
+
+app.use(notFound);
+
 
 export default app;
