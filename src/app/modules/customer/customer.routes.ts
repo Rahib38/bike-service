@@ -12,4 +12,4 @@ router.put('/customers/:id', customerController.updateCustomerFromDB)
 
 router.delete('/customers/:id', customerController.deleteCustomerFromDB)
 
-export default router
+export const customerRouter= router

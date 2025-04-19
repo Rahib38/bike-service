@@ -1,9 +1,8 @@
 import cors from "cors";
-import express, { Application, NextFunction, Request, Response } from "express";
-import router from "./app/modules/customer/customer.routes";
-import bikeRouter from "./app/modules/bike/bike.routes";
+import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middleware/globalErrorhandleing";
-import status from "http-status";
+import bikeRouter from "./app/modules/bike/bike.routes";
+import { customerRouter } from "./app/modules/customer/customer.routes";
 import serviceRouter from "./app/modules/service/service.routes";
 import notFound from "./shared/notFound";
 
@@ -12,11 +11,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api',router)
-app.use('/api',bikeRouter)
-app.use('/api',serviceRouter)
+app.use("/api", customerRouter);
+app.use("/api", bikeRouter);
+app.use("/api", serviceRouter);
 
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 app.use(notFound);
 
@@ -26,4 +25,4 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-export default app
+export default app;
